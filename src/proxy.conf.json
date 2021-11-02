@@ -1,0 +1,13 @@
+{
+    "/cheese/backend/**": {
+        "target": "https://localhost:1234",
+        "secure": false,
+        "changeOrigin": true,
+        "ws": true
+    },
+    "!/cheese/**": {
+        "target": "https://dev.environment.com",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

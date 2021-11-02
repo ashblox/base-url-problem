@@ -1,27 +1,32 @@
 # BaseUrlProblem
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.3.
+This project was created to demonstrate an issue encountered using Cypress version 8.7.0. It would appear that if you are using @cypress/schematic, Cypress' official Angular schematic, the `baseUrl` option is ignored when a `devServerTarget` is specified.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `https://localhost:4200/`. The app will automatically redirect you to `/cheese`. This is the landing page of the app. Clicking on France or Germany will direct you to corresponding routes `/cheese/france` and `/cheese/germany`.
 
-## Code scaffolding
+## Running E2E tests
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+There are multiple configurations as described in the `angular.json`. This is how each of the run configurations would theoretically work:
 
-## Build
+ - `npm run e2e` should run headed against a local dev server targetting a local backend
+ - `npm run e2e:ci` should run headless against a local dev server targetting the backend (deployed in our dev environment)
+ - `npm run e2e:regression` should run headless against the dev-deployed application & should also report
+ - `npm run e2e:dev` should run headed against the dev-deployed application
+ - `npm run e2e:local-local` should run headed against a local dev server targetting a local backend, but shouldn't spin it up... i.e. we would spin it up ourselves in a separate terminal
+ - `npm run e2e:local-dev` should run headed against a local dev server targetting the backend (deployed in our dev environment)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Mind you, this is for demo purposes only so there is no actual backend to speak of. The reporter selected in the regression configuration is also a bogus reporter. So how are you supposed to reproduce the issue described? Glad you asked!
 
-## Running unit tests
+## Reproducing the issue
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+If you look at the `local-dev` configuration in the `angular.json` you will notice the `baseUrl` includes `/cheese`. Now run the test in `navigation.spec.ts`. The baseUrl that we `cy.log()` doesn't include `/cheese`. As a result, when we try to navigate to `/france` we get a 404 because `https://localhost:4200/france` does not exist.
 
-## Running end-to-end tests
+![](screenshot.png)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Workaround
 
-## Further help
+Now there is a workaround, and that's to tell your app itself that the `deployUrl` for the `dev-proxy` config should be `/cheese`. This is probably good practice anyway. You can checkout the `workaround` branch to see this in action.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+It would still be nice though for Cypress to use the `baseUrl` if you specify one.

@@ -64,10 +64,14 @@
       true,
       "as-needed"
     ],
-    "quotemark": [
-      true,
-      "single"
-    ],
+    "quotemark": {
+      "options": [
+        "double",
+        "avoid-escape",
+        "avoid-template"
+      ],
+      "severity": "warning"
+    },
     "semicolon": {
       "options": [
         "always"

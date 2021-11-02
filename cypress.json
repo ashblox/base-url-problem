@@ -1,0 +1,9 @@
+{
+    "baseUrl": "http://dev.environment.com/production-routing/blah-blah-blah",
+    "chromeWebSecurity": false,
+    "viewportWidth": 1280,
+    "viewportHeight": 720,
+    "video": false,
+    "defaultCommandTimeout": 10000,
+    "includeShadowDom": true
+}
