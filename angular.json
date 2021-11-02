@@ -60,6 +60,9 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "dev-proxy":{
+              "deployUrl": "/cheese"
             }
           }
         },
@@ -74,6 +77,7 @@
               "browserTarget": "base-url-problem:build:production"
             },
             "dev-proxy": {
+              "browserTarget": "base-url-problem:build:dev-proxy",
               "ssl": true,
               "proxyConfig": "src/proxy.dev.conf.json"
             }
