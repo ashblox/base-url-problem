@@ -1,6 +1,6 @@
 # BaseUrlProblem
 
-This project was created to demonstrate an issue encountered using Cypress version 8.7.0. It would appear that if you are using @cypress/schematic, Cypress' official Angular schematic, the `baseUrl` option is ignored when a `devServerTarget` is specified.
+This project was created to demonstrate [an issue](https://github.com/cypress-io/cypress/issues/18745) encountered using Cypress version 8.7.0. It would appear that if you are using @cypress/schematic, Cypress' official Angular schematic, the `baseUrl` option is ignored when a `devServerTarget` is specified.
 
 ## Development server
 
